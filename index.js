@@ -6,7 +6,8 @@ const express = require('express'),
       async = require('async'),
       moment = require('moment'),
       os = require('os'),
-      ip = require('ip');
+      ip = require('ip')
+      gpio = require('rpi-gpio');
 
 const routes = require('./routes'),
       ipFilter = require('./ipfilter');
@@ -58,22 +59,22 @@ console.log(`
 async.parallel([
     function(callback) {
         console.log(`+  GPIO Setup: Door Top [#${PINS.DOOR_TOP}]`);
-        //gpio.setup(PINS.DOOR_TOP, gpio.DIR_IN, gpio.EDGE_BOTH, callback);
+        gpio.setup(PINS.DOOR_TOP, gpio.DIR_IN, gpio.EDGE_BOTH, callback);
         callback();
     },
     function(callback) {
         console.log(`+  GPIO Setup: Door Middle [#${PINS.DOOR_MID}]`);
-        //gpio.setup(PINS.DOOR_MID, gpio.DIR_IN, gpio.EDGE_BOTH, callback);
+        gpio.setup(PINS.DOOR_MID, gpio.DIR_IN, gpio.EDGE_BOTH, callback);
         callback();
     },
     function(callback) {
         console.log(`+  GPIO Setup: Door Bottom [#${PINS.DOOR_BOT}]`);
-        //gpio.setup(PINS.DOOR_BOT, gpio.DIR_IN, gpio.EDGE_BOTH, callback);
+        gpio.setup(PINS.DOOR_BOT, gpio.DIR_IN, gpio.EDGE_BOTH, callback);
         callback();
     },
     function(callback) {
         console.log(`+  GPIO Setup: Relay [#${PINS.RELAY}]`);
-        //gpio.setup(PINS.RELAY, gpio.DIR_LOW, callback);
+        gpio.setup(PINS.RELAY, gpio.DIR_LOW, callback);
         callback();
     },
     function(callback) {
