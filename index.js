@@ -95,8 +95,8 @@ function(err, results) {
     if (err) {
       console.log('# API Server Failed');
     } else {
-      app.listen(3001, function () {
-        console.log(`+  API Ready @ ${ip.address()}:3001`);
+      app.listen(3009, function () {
+        console.log(`+  API Ready @ ${ip.address()}:${app.address().port}`);
       });
     }
 });

@@ -20,17 +20,17 @@ routes.get('/', (req, res) => {
   responseMessage.api = [
     {
       name:         'air',
-      path:         `http://${ip.address()}:3001/air`,
+      path:         `http://${ip.address()}:${req.app.address().port}/air`,
       description:  'Garage air temperature and humidity.'
     },
     {
       name:         'door',
-      path:         `http://${ip.address()}:3001/door`,
+      path:         `http://${ip.address()}:${req.app.address().port}/door`,
       description:  'Garage door status.'
     },
     {
       name:         'trigger',
-      path:         `http://${ip.address()}:3001/trigger`,
+      path:         `http://${ip.address()}:${req.app.address().port}/trigger`,
       description:  'Trigger the garage door button.'
     }
   ]
