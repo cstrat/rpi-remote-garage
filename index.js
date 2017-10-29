@@ -23,18 +23,21 @@ const bootData = app.locals.bootData = {
   uptime: os.uptime()
 }
 
-// GPIO Pins
+// GPIO Setup
+gpio.setMode(gpio.MODE_BCM);
+
+// PIN Layout
 const PINS = {
-  RELAY:    0,
-  DOOR_TOP: 0,
-  DOOR_MID: 0,
-  DOOR_BOT: 0,
-  TEMP:     0
+  RELAY:    4,
+  DOOR_TOP: 17,
+  DOOR_MID: 27,
+  DOOR_BOT: 22,
+  TEMP:     11
 }
 
 // Attach Sensor & GPIOs to Req
 app.use(function(req,res,next) {
-  req._gpio = 'gpio';
+  req._gpio = gpio;
   req._PINS = PINS;
   next();
 });
