@@ -6,7 +6,8 @@ const express = require('express'),
       async = require('async'),
       moment = require('moment'),
       os = require('os'),
-      ip = require('ip')
+      ip = require('ip'),
+      sensor = require('node-dht-sensor'),
       gpio = require('rpi-gpio');
 
 const routes = require('./routes'),
