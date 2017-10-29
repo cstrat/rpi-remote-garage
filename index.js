@@ -115,6 +115,8 @@ setInterval(function() {
         temp:     temperature.toFixed(1),
         humidity: humidity.toFixed(1)
       });
+    }else{
+      console.error(`Error reading temperature from GPIO #${PINS.TEMP}.\n${err}`);
     }
   });
 
@@ -130,6 +132,10 @@ gpio.on('change', function(channel, value) {
   //    Bottom trigger turned false means moving up,
   //    Middle trigger turning false means moving past half way.
   //    Top trigger turning false means moving down.
+
+  console.log(`Event Triggered - ${channel} to ${value}`);
+
+  const currentStatus = app.locals.doorStatus;
 
   app.locals.doorStatus = {
     position:   '',
