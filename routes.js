@@ -56,7 +56,7 @@ routes.get('/trigger', (req, res) => {
 
   req._gpio.write(req._PINS.RELAY, true, function(err, value) {
     setTimeout(function() {
-      gpio.write(req._PINS.RELAY, false);
+      req._gpio.write(req._PINS.RELAY, false);
     }, 500);
   });
 

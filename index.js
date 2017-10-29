@@ -90,7 +90,6 @@ async.parallel([
         callback();
     }
 ],
-// optional callback
 function(err, results) {
     if (err) {
       console.log('# API Server Failed');
