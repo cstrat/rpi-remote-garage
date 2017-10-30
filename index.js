@@ -125,15 +125,6 @@ setInterval(function() {
 
 // Event Driven Service
 gpio.on('change', function(channel, value) {
-  // Detect which channel has changed.
-  // Moving from true to false means it's moving away.
-  // Moving from false to true means it has moved there.
-  // Ascertain direction:
-  //    Bottom trigger turned false means moving up,
-  //    Middle trigger turning false means moving past half way.
-  //    Top trigger turning false means moving down.
-
-  console.log(`Event Triggered - ${channel} to ${value}`);
 
   let {position, direction} = app.locals.doorStatus;
 
@@ -187,5 +178,6 @@ process.on('SIGINT', function() {
   console.log(`-\n+  Server Shutting Down`);
   gpio.destroy(function() {
        console.log('+  GPIO Pins Released');
+       process.exit();
    });
 });
