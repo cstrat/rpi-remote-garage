@@ -135,11 +135,57 @@ gpio.on('change', function(channel, value) {
 
   console.log(`Event Triggered - ${channel} to ${value}`);
 
-  const currentStatus = app.locals.doorStatus;
+  let {position, direction} = app.locals.doorStatus;
 
-  app.locals.doorStatus = {
-    position:   '',
-    direction:  ''
+  switch(channel) {
+    case PINS.DOOR_TOP:
+
+      if (value) {
+        position = 'TOP';
+        direction = 'STATIONARY';
+      }else{
+        position = 'MOVING';
+        direction = 'DOWN';
+      }
+
+    break;
+    case PINS.DOOR_MID:
+
+      if (value) {
+        position = 'MIDDLE';
+      }else{
+        position = 'MOVING';
+      }
+
+    break;
+    case PINS.DOOR_BOT:
+
+      if (value) {
+        position = 'BOTTOM';
+        direction = 'STATIONARY';
+      }else{
+        position = 'MOVING';
+        direction = 'UP';
+      }
+
+    break;
   }
 
+  console.log(`+  Door Status Change: ${position} & ${direction}`);
+
+  app.locals.doorStatus = {
+    updated: new Date(),
+    position,
+    direction
+  }
+
+});
+
+
+// On Shutdown
+process.on('SIGINT', function() {
+  console.log(`-\n+  Server Shutting Down`);
+  gpio.destroy(function() {
+       console.log('+  GPIO Pins Released');
+   });
 });
