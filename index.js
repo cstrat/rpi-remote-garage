@@ -92,7 +92,7 @@ async.parallel([
 ],
 function(err, results) {
     if (err) {
-      console.log('# API Server Failed');
+      console.log('*  API Server Failed');
     } else {
       app.listen(3009, function () {
         console.log(`+  API Ready @ ${ip.address()}:3009`);
@@ -116,7 +116,7 @@ setInterval(function() {
         humidity: humidity.toFixed(1)
       });
     }else{
-      console.error(`Error reading temperature from GPIO #${PINS.TEMP}.\n${err}`);
+      console.error(`*  Error reading temperature from GPIO #${PINS.TEMP}`);
     }
   });
 
