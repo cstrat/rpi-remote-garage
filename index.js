@@ -80,6 +80,8 @@ async.parallel([
     function(callback) {
         console.log(`+  Setup Temperature Data`);
         app.locals.temperatureData = [];
+        app.locals.temperatureCounter = 0;
+        app.locals.temperatureHistory = [];
 
         console.log(`+  Setup Door Status`);
         app.locals.doorStatus = {
@@ -104,7 +106,7 @@ function(err, results) {
 // Timed Service
 setInterval(function() {
   // Temperature Data
-  if (app.locals.temperatureData.length >= 10) {
+  if (app.locals.temperatureData.length >= 30) {
     app.locals.temperatureData.pop();
   }
 
@@ -115,6 +117,22 @@ setInterval(function() {
         temp:     temperature.toFixed(1),
         humidity: humidity.toFixed(1)
       });
+
+      app.locals.temperatureCounter++;
+
+      if (app.locals.temperatureCounter >= 30) {
+
+        if (app.locals.temperatureHistory.length >= 100) {
+          app.locals.temperatureHistory.pop();
+        }
+
+        app.locals.temperatureHistory.unshift({
+          time:     new Date(),
+          temp:     app.locals.temperatureData.map(x=>x.temp).reduce((a,b)=>a+b) / app.locals.temperatureData.length,
+          humidity: app.locals.temperatureData.map(x=>x.humidity).reduce((a,b)=>a+b) / app.locals.temperatureData.length
+        });
+      }
+
     }else{
       console.error(`*  Error reading temperature from GPIO #${PINS.TEMP}`);
     }
