@@ -108,7 +108,7 @@ setInterval(function() {
   // Temperature Data
 
   const LIMIT_RECENT = 59;
-  const LIMIT_HISTORY = LIMIT_HISTORY;
+  const LIMIT_HISTORY = 2000;
 
 
   if (app.locals.temperatureData.length >= LIMIT_RECENT) {
