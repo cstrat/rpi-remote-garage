@@ -123,8 +123,6 @@ setInterval(function() {
         humidity: humidity.toFixed(1)
       });
 
-      app.locals.temperatureCounter++;
-
       // If we've collected 60 samples, add the average to the running history
       if (app.locals.temperatureCounter >= LIMIT_RECENT) {
         app.locals.temperatureCounter = 0;
@@ -136,17 +134,19 @@ setInterval(function() {
 
         app.locals.temperatureHistory.unshift({
           time:     new Date(),
-          temp:     app.locals.temperatureData.map(x=>x.temp).reduce((a,b)=>a+b) / app.locals.temperatureData.length,
-          humidity: app.locals.temperatureData.map(x=>x.humidity).reduce((a,b)=>a+b) / app.locals.temperatureData.length
+          temp:     app.locals.temperatureData.map(x=>+x.temp).reduce((a,b)=>a+b) / app.locals.temperatureData.length,
+          humidity: app.locals.temperatureData.map(x=>+x.humidity).reduce((a,b)=>a+b) / app.locals.temperatureData.length
         });
       }
+
+      app.locals.temperatureCounter++;
 
     }else{
       console.error(`*  Error reading temperature from GPIO #${PINS.TEMP}`);
     }
   });
 
-}, 60 * 1000);
+}, 2000);
 
 
 // Event Driven Service
