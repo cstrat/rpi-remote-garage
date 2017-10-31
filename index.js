@@ -146,7 +146,7 @@ setInterval(function() {
     }
   });
 
-}, 60 * 1000);
+}, 1000);
 
 
 // Event Driven Service
