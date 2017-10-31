@@ -120,9 +120,12 @@ setInterval(function() {
 
       app.locals.temperatureCounter++;
 
-      if (app.locals.temperatureCounter >= 30) {
+      // If we've collected 60 samples, add the average to the running history
+      if (app.locals.temperatureCounter >= 59) {
+        app.locals.temperatureCounter = 0;
 
-        if (app.locals.temperatureHistory.length >= 100) {
+        // Only collect ~ 3 months of data (assuming averaging each hour)
+        if (app.locals.temperatureHistory.length >= 2000) {
           app.locals.temperatureHistory.pop();
         }
 
@@ -138,7 +141,7 @@ setInterval(function() {
     }
   });
 
-}, 2500);
+}, 2000);
 
 
 // Event Driven Service
