@@ -106,7 +106,12 @@ function(err, results) {
 // Timed Service
 setInterval(function() {
   // Temperature Data
-  if (app.locals.temperatureData.length >= 30) {
+
+  const LIMIT_RECENT = 59;
+  const LIMIT_HISTORY = LIMIT_HISTORY;
+
+
+  if (app.locals.temperatureData.length >= LIMIT_RECENT) {
     app.locals.temperatureData.pop();
   }
 
@@ -121,11 +126,11 @@ setInterval(function() {
       app.locals.temperatureCounter++;
 
       // If we've collected 60 samples, add the average to the running history
-      if (app.locals.temperatureCounter >= 59) {
+      if (app.locals.temperatureCounter >= LIMIT_RECENT) {
         app.locals.temperatureCounter = 0;
 
         // Only collect ~ 3 months of data (assuming averaging each hour)
-        if (app.locals.temperatureHistory.length >= 2000) {
+        if (app.locals.temperatureHistory.length >= LIMIT_HISTORY) {
           app.locals.temperatureHistory.pop();
         }
 
@@ -141,7 +146,7 @@ setInterval(function() {
     }
   });
 
-}, 2000);
+}, 60 * 1000);
 
 
 // Event Driven Service
