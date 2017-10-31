@@ -41,7 +41,7 @@ routes.get('/', (req, res) => {
 
 // Return the air temperature details (these are refreshed in the background every minute)
 routes.get('/air', (req, res) => {
-  res.status(200).json({ response: req.app.locals.temperatureData });
+  res.status(200).json({ response: { recent: req.app.locals.temperatureData, historic: req.app.locals.temperatureHistory } });
 });
 
 
