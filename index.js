@@ -134,8 +134,8 @@ setInterval(function() {
 
         app.locals.temperatureHistory.unshift({
           time:     new Date(),
-          temp:     app.locals.temperatureData.map(x=>+x.temp).reduce((a,b)=>a+b) / app.locals.temperatureData.length,
-          humidity: app.locals.temperatureData.map(x=>+x.humidity).reduce((a,b)=>a+b) / app.locals.temperatureData.length
+          temp:     Math.round(app.locals.temperatureData.map(x=>+x.temp).reduce((a,b)=>a+b) / app.locals.temperatureData.length * 100) / 100,
+          humidity: Math.round(app.locals.temperatureData.map(x=>+x.humidity).reduce((a,b)=>a+b) / app.locals.temperatureData.length * 100) / 100
         });
       }
 
@@ -146,7 +146,7 @@ setInterval(function() {
     }
   });
 
-}, 2000);
+}, 60 * 1000);
 
 
 // Event Driven Service
