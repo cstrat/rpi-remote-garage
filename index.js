@@ -107,7 +107,7 @@ function(err, results) {
 setInterval(function() {
   // Temperature Data
 
-  const LIMIT_RECENT = 59;
+  const LIMIT_RECENT = 60;
   const LIMIT_HISTORY = 2000;
 
 
