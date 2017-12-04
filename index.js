@@ -95,9 +95,10 @@ async.parallel([
 function(err, results) {
     if (err) {
       console.log('*  API Server Failed');
+      console.log(err);
     } else {
-      app.listen(3009, function () {
-        console.log(`+  API Ready @ ${ip.address()}:3009`);
+      app.listen(80, function () {
+        console.log(`+  API Ready @ ${ip.address()}`);
       });
     }
 });
@@ -143,6 +144,7 @@ setInterval(function() {
 
     }else{
       console.error(`*  Error reading temperature from GPIO #${PINS.TEMP}`);
+      console.log(err);
     }
   });
 
