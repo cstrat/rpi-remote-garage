@@ -105,9 +105,9 @@ function(err, results) {
         console.log(`+  API Ready @ ${ip.address()}`);
       });
 
-      gpio.read(PINS.DOOR_TOP, function(err, value) { console.log('TOP: ' + value); });
-      gpio.read(PINS.DOOR_MID, function(err, value) { console.log('MID: ' + value); });
-      gpio.read(PINS.DOOR_BOT, function(err, value) { console.log('BOT: ' + value); });
+      gpio.read(PINS.DOOR_TOP, function(err, value) { console.log('+  TOP: ' + value); });
+      gpio.read(PINS.DOOR_MID, function(err, value) { console.log('+  MID: ' + value); });
+      gpio.read(PINS.DOOR_BOT, function(err, value) { console.log('+  BOT: ' + value); });
     }
 });
 
@@ -161,6 +161,8 @@ setInterval(function() {
 
 // Event Driven Service
 gpio.on('change', function(channel, value) {
+
+  console.log(`+  GPIO Event = Channel: ${channel}, Value: ${value}`);
 
   let {position, direction} = app.locals.doorStatus;
 
