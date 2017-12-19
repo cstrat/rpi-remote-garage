@@ -21,7 +21,11 @@ const bootData = app.locals.bootData = {
   date:   new Date(),
   ip:     ip.address(),
   load:   os.loadavg(),
-  uptime: os.uptime()
+  uptime: os.uptime(),
+  memory: {
+    total:  os.totalmem(),
+    free:   os.freemem()
+  }
 }
 
 // GPIO Setup
@@ -100,6 +104,10 @@ function(err, results) {
       app.listen(80, function () {
         console.log(`+  API Ready @ ${ip.address()}`);
       });
+
+      gpio.read(PINS.DOOR_TOP, function(err, value) { console.log('TOP: ' + value); });
+      gpio.read(PINS.DOOR_MID, function(err, value) { console.log('MID: ' + value); });
+      gpio.read(PINS.DOOR_BOT, function(err, value) { console.log('BOT: ' + value); });
     }
 });
 

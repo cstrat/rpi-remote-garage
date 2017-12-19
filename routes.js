@@ -15,7 +15,11 @@ routes.get('/', (req, res) => {
     date:   new Date(),
     ip:     ip.address(),
     load:   os.loadavg(),
-    uptime: os.uptime()
+    uptime: os.uptime(),
+    memory: {
+      total:  os.totalmem(),
+      free:   os.freemem()
+    }
   }
   responseMessage.api = [
     {
